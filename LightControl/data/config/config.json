@@ -1,0 +1,29 @@
+{
+  "wifi": {
+    "enabled": 1,
+    "wifi_ssid": "StanleyL",
+    "wifi_pass": "vvvvvv11",
+    "wifi_ip": "192.168.1.103",
+    "wifi_gw": "192.168.1.1",
+    "wifi_subnet": "255.255.255.0"
+  },
+  "blynk": {
+    "enabled": 1,
+    "blynk_auth": "35fa06b3a8a843c0a351c27b35263784"
+  },
+  "ada_mqtt": {
+    "enabled": 1,
+    "username": "stanzlavos",
+    "key": "3637a8fc6b4e449ab7b4a87884d06a12"
+  },
+  "light_time": {
+    "on_time_hour": 19,
+    "on_time_min": 0,
+    "off_time_hour": 22,
+    "off_time_min": 30
+  },
+  "ota": {
+    "update_ip": "192.168.1.101",
+    "update_script": "/scripts/update.php"
+  }
+}
