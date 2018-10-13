@@ -14,6 +14,7 @@ typedef enum
   DEV_MAX
 };
 
+void setup_laptop(void);
 void handle_laptop(void);
 bool is_laptop_on(void);
 void turn_on_laptop(void);

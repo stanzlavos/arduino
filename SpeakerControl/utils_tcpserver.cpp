@@ -15,7 +15,7 @@
 #define CMD_DEV_NAME    2
 
 #define SERVER_PORT     1234
-#define CLIENT_TIMEOUT  5000  // 2 Sec
+#define CLIENT_TIMEOUT  5000  // 5 Sec
 
 #define MSG_OK          "OK"
 #define MSG_NOK         "NOK"
@@ -87,6 +87,9 @@ void handle_tcpserver(void) {
           return;
         }
 
+        // Send ACK to client
+        send_msg(MSG_OK);
+        
         switch(cmd)
         {
           case DEV_SPEAKER_ON :
@@ -142,8 +145,6 @@ void handle_tcpserver(void) {
             return;
         }
 
-        // Send ACK to client
-        send_msg(MSG_OK);
         rgb_blink(LED_GREEN, 500, 1);
       }
     }

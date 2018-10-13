@@ -9,7 +9,7 @@
 #define SERVER_PORT         1234
 #define SERVER_CNCT_WAIT    1000
 #define SERVER_CNCT_RETRY   3
-#define SERVER_MSG_TIMEOUT  3000
+#define SERVER_MSG_TIMEOUT  10000
 #define SERVER_RESP_LEN     8
 
 #define MSG_RETRY           2
@@ -52,7 +52,7 @@ bool forward_cmd_to_device(uint8_t dev, char *cmd) {
   for( ; retry_cnt < SERVER_CNCT_RETRY; retry_cnt++) {
     if (!tcp_client.connect(devices[dev].ip, SERVER_PORT)) {
         rgb_blink(LED_RED, 200, 1);
-        Serial.println("connection failed");
+        T_PRINTLN("connection failed");
         delay(SERVER_CNCT_WAIT);
     } else {
       break;
@@ -101,18 +101,20 @@ bool handle_attached_devices(char *cmd, char *dev_type, char *dev_name) {
 }
 
 #define CMD_STR_LEN             64
-#define ENTRTNMNT_UNIT_DEVICES  1
+#define ENTRTNMNT_UNIT_DEVICES  2
 
 typedef struct {
   uint8_t dev;
   char cmd[CMD_STR_LEN];
 } dev_grp_t;
 
-dev_grp_t entrtnmnt_devs_on[ENTRTNMNT_UNIT_DEVICES]   = { {DEV_SPEAKER, "0 speaker living"}
+dev_grp_t entrtnmnt_devs_on[ENTRTNMNT_UNIT_DEVICES]   = { {DEV_SPEAKER, "0 speaker living"},
+                                                          {DEV_LAPTOP, "0 laptop living"}
                                                         };
 
-dev_grp_t entrtnmnt_devs_off[ENTRTNMNT_UNIT_DEVICES]  = { {DEV_SPEAKER, "1 speaker living"}
-                                                        };                                     
+dev_grp_t entrtnmnt_devs_off[ENTRTNMNT_UNIT_DEVICES]  = { {DEV_SPEAKER, "1 speaker living"},
+                                                          {DEV_LAPTOP, "1 laptop living"}
+                                                        };
 
 bool entrtnmnt_unit_on(void) {
   bool ret = true;
@@ -122,7 +124,7 @@ bool entrtnmnt_unit_on(void) {
   for(int i = 0; i < ENTRTNMNT_UNIT_DEVICES; i++) {
     bool result;
     for(int j = 0; j < MSG_RETRY; j++) {
-      if((result = forward_cmd_to_device(entrtnmnt_devs_on[j].dev, entrtnmnt_devs_on[j].cmd)) == true) {
+      if((result = forward_cmd_to_device(entrtnmnt_devs_on[i].dev, entrtnmnt_devs_on[i].cmd)) == true) {
         rgb_cycle(1, 50);
         break;
       }
@@ -143,7 +145,7 @@ bool entrtnmnt_unit_off(void) {
   for(int i = 0; i < ENTRTNMNT_UNIT_DEVICES; i++) {
     bool result;
     for(int j = 0; j < MSG_RETRY; j++) {
-      if((result = forward_cmd_to_device(entrtnmnt_devs_off[j].dev, entrtnmnt_devs_off[j].cmd)) == true) {
+      if((result = forward_cmd_to_device(entrtnmnt_devs_off[i].dev, entrtnmnt_devs_off[i].cmd)) == true) {
         rgb_cycle(1, 50);
         break;
       }

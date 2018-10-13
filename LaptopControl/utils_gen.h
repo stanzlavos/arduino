@@ -6,7 +6,7 @@
 #include "utils_rgb.h"
 #include <pins_arduino.h>
 
-#define ON_BOARD_LED
+//#define ON_BOARD_LED
 
 static inline void blink_led(uint8_t cnt) {
 

@@ -64,13 +64,15 @@ void setup() {
 
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
+
+  setup_laptop();
   
 #ifdef RGB_IN_USE
   setup_rgb();
 #endif
 
   blink_led(3);
-
+  
 #ifdef COLOUR_IN_USE
   setup_colour();
 #endif

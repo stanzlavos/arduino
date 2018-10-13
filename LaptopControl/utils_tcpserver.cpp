@@ -15,7 +15,7 @@
 #define CMD_DEV_NAME    2
 
 #define SERVER_PORT     1234
-#define CLIENT_TIMEOUT  5000  // 2 Sec
+#define CLIENT_TIMEOUT  5000  // 5 Sec
 
 #define MSG_OK          "OK"
 #define MSG_NOK         "NOK"
@@ -31,14 +31,7 @@ void setup_tcpserver(void) {
 bool accept_msg(char *dev_type, char *dev_name) {
   if((dev_type == NULL) || (dev_name == NULL))
     return false;
-
-  T_PRINT(dev_type);
-  T_PRINT(" ");
-  T_PRINTLN(strlen(dev_type));
-  T_PRINT(dev_name);
-  T_PRINT(" ");
-  T_PRINTLN(strlen(dev_name));
-
+    
   return((strcmp(dev_type, DEV_TYPE) == 0) && (strcmp(dev_name, DEV_NAME) == 0));
 }
 
@@ -87,6 +80,9 @@ void handle_tcpserver(void) {
           return;
         }
 
+        // Send ACK to client
+        send_msg(MSG_OK);
+        
         switch(cmd)
         {
           case DEV_LAPTOP_ON :
@@ -122,8 +118,6 @@ void handle_tcpserver(void) {
             return;
         }
 
-        // Send ACK to client
-        send_msg(MSG_OK);
         rgb_blink(LED_GREEN, 500, 1);
       }
     }

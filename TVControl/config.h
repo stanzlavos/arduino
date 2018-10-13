@@ -1,7 +1,7 @@
 #ifndef __CONFIG__
 #define __CONFIG__
 
-#define SKETCH_VERSION     "test_v1.5"
+#define SKETCH_VERSION     "test_v1.8"
 #define SPIFFS_VERSION     "test_v1.0"
 
 #define BLYNK_IN_USE
